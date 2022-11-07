@@ -116,6 +116,8 @@ INSERT INTO ESTADO (id,nombre) VALUES ('A','Aprobado');
 ALTER TABLE TICKET
 ADD COLUMN estadoDelTicket VARCHAR(5) CONSTRAINT FK_ESTADO_TICKET FOREIGN KEY (estadoDelTicket) REFERENCES ESTADO (id);
 
+ALTER TABLE TICKET ALTER COLUMN estadoDelTicket TYPE VARCHAR(5);
+ALTER TABLE TICKET ADD CONSTRAINT FK_TICKET_ESTADODELTICKET FOREIGN KEY (estadoDelTicket) REFERENCES ESTADO (id)
 
 ALTER TABLE TICKET
 ADD estadoDelTicket CHAR CONSTRAINT FK_ESTADO_TICKET FOREIGN KEY (estadoDelTicket) REFERENCES ESTADO(id);
@@ -151,9 +153,16 @@ INSERT INTO CONTIENE_EMPRESA_AREA (NIT,AREA_ID) VALUES (6512343,111);
 INSERT INTO EMPLEADO (EMPLEADO_ID,ROL_ID,AREA_ID,nombre,apellidos,password,email,estado) VALUES (1,1,111,'Juan','Hoyos','12345','juanhoyos@ecopetrol.com.co',true);
 
 
-INSERT INTO TICKET (TICKET_ID,EMPLEADO_ID,titulo,descripcion,imagenURL,fecha_inicio,estado) VALUES (1,1,'I need help','Help me','https://img.freepik.com/foto-gratis/dos-tickets-amarillos_1101-56.jpg?1','2022-11-06',true);
+---Ticket abierto
+INSERT INTO TICKET (TICKET_ID,EMPLEADO_ID,titulo,descripcion,imagenURL,fecha_inicio,estadoDelTicket) VALUES (1,1,'I need help','Help me','https://img.freepik.com/foto-gratis/dos-tickets-amarillos_1101-56.jpg?1','2022-11-06','O');
 
 
+---Ticket Cerrado
+INSERT INTO TICKET (TICKET_ID,EMPLEADO_ID,titulo,descripcion,imagenURL,fecha_inicio,estadoDelTicket) VALUES (2,1,'Ticket cerrado','El tcicket es cerrado','https://img.freepik.com/foto-gratis/dos-tickets-amarillos_1101-56.jpg?1','2022-11-07','C');
+
+
+--Ticket aprobado
+INSERT INTO TICKET (TICKET_ID,EMPLEADO_ID,titulo,descripcion,imagenURL,fecha_inicio,estadoDelTicket) VALUES (3,1,'Ticket aprobado','El tcicket es aprobado','https://img.freepik.com/foto-gratis/dos-tickets-amarillos_1101-56.jpg?1','2022-11-07','A');
 
 --Conexion a bd
 

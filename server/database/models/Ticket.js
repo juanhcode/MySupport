@@ -1,8 +1,8 @@
 const pool = require('../db.js');
 
-const getAllTickets = async ()=>{
+const getAllOpenTickets = async ()=>{
     try {
-        const tickets = await pool.query('SELECT * FROM TICKET');
+        const tickets = await pool.query(`SELECT * FROM TICKET WHERE estadoDelTicket = 'O'`);
         return tickets.rows;
     } catch (error) {
         console.log(error);
@@ -10,5 +10,5 @@ const getAllTickets = async ()=>{
 }
 
 module.exports = {
-    getAllTickets,
+    getAllOpenTickets,
 };
