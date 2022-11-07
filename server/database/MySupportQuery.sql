@@ -101,4 +101,60 @@ CREATE TABLE TELEFONO (
 	REFERENCES EMPRESA (NIT)
 );
 
+CREATE TABLE ESTADO (
+	id VARCHAR(5),
+	nombre VARCHAR(50),
+	PRIMARY KEY (id)
+);
+
+
+INSERT INTO ESTADO (id,nombre) VALUES ('O','Abierto');
+INSERT INTO ESTADO (id,nombre) VALUES ('C','Cerrado');
+INSERT INTO ESTADO (id,nombre) VALUES ('A','Aprobado');
+
+
+ALTER TABLE TICKET
+ADD COLUMN estadoDelTicket VARCHAR(5) CONSTRAINT FK_ESTADO_TICKET FOREIGN KEY (estadoDelTicket) REFERENCES ESTADO (id);
+
+
+ALTER TABLE TICKET
+ADD estadoDelTicket CHAR CONSTRAINT FK_ESTADO_TICKET FOREIGN KEY (estadoDelTicket) REFERENCES ESTADO(id);
+
+
+ALTER TABLE TICKET ADD estadoDelTicket CHAR(1) FOREIGN KEY (estadoDelTicket) REFERENCES ESTADO(id);
+
+
+
+
+
+
+
+INSERT INTO EMPRESA (NIT,nombre,pais,ciudad,direccion,email) VALUES (6512343, 'Ecopetrol','Colombia','Barrancabermeja','carrera 20 #40 53','centraldereferencia@ecopetrol.com.co');
+
+INSERT INTO AREA (AREA_ID,nombre) VALUES (111,'Marketing');
+
+INSERT INTO ROL (ROL_ID,nombre) VALUES (1,'Empleado');
+INSERT INTO ROL (ROL_ID,nombre) VALUES (2,'Supervisor');
+INSERT INTO ROL (ROL_ID,nombre) VALUES (3,'Agente');
+
+
+INSERT INTO SUPERVISOR (SUPERVISOR_ID,ROL_ID,nombre,apellidos,password,email,estado) VALUES (1,2,'Wilson','Montoya','12345','wilsonc@ecopetrol.com.co',true);
+
+
+INSERT INTO AGENTE (AGENTE_ID,ROL_ID,nombre,apellidos,password,email,estado) VALUES (1,3,'Pablo','Lopez','12345','pablol@ecopetrol.com.co',true);
+
+INSERT INTO SUPERVISOR_ASIGNA_AGENTE (AGENTE_ID,SUPERVISOR_ID) VALUES (1,1);
+
+INSERT INTO CONTIENE_EMPRESA_AREA (NIT,AREA_ID) VALUES (6512343,111);
+
+
+INSERT INTO EMPLEADO (EMPLEADO_ID,ROL_ID,AREA_ID,nombre,apellidos,password,email,estado) VALUES (1,1,111,'Juan','Hoyos','12345','juanhoyos@ecopetrol.com.co',true);
+
+
+INSERT INTO TICKET (TICKET_ID,EMPLEADO_ID,titulo,descripcion,imagenURL,fecha_inicio,estado) VALUES (1,1,'I need help','Help me','https://img.freepik.com/foto-gratis/dos-tickets-amarillos_1101-56.jpg?1','2022-11-06',true);
+
+
+
+--Conexion a bd
+
 
