@@ -1,78 +1,93 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family:Arial, Helvetica, sans-serif;
+:root{
+    --white: #FFF;
+    --black: #000000;
+    --very-light-pink: #C7C7C7;
+    --text-input-field: #F7F7F7;
+    --hospital-blue: #5499C7;
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
 }
 body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
 }
-video {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 105%;
-    min-height: 100%;
-    transform: translateX(calc((100% - 100vw) / 2));
-    z-index: -2;
+.login{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    place-items: center;
 }
-form{
+.form-container{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    width: 300px;
+}
+.logo {
+    width: 150px;
+    margin-bottom: 48px;
+    justify-self: center;
+
+}
+
+.form{
     display: flex;
     flex-direction: column;
-    background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7));
-    padding: 20px 25px;
-    box-shadow: 0 5px 10px rgba(71, 3, 6, 0.7);
 }
 
-form .title{
+.form a {
+    color: var(--hospital-blue);
+    font-size: var(--sm);
     text-align: center;
-    color: #252525;
-    font-size: 35px;
-    font-weight: 800;
+    text-decoration: none;
+    margin-bottom: 54px;
+}
+.label {
+    font-size: var(--sm);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.input{
+    background-color: var(--text-input-field);
+    border: none;
+    border-radius: 8px;
+    height: 30px;
+    font-size: var(--md);
+    padding: 6px;
+    margin-bottom: 12px;
+}
+.input-email{
+    margin-bottom: 22px;
+}
+.primary-button{
+    background-color: var(--hospital-blue);
+    border-radius: 8px;
+    border: none;
+    color: var(--white);
+    width: 100%;;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 50px;
+}
+.secondary-button{
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--hospital-blue);
+    color: var(--hospital-blue);
+    width: 100%;;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 50px;
+}
+.login-button{
+    margin-top: 14px;
     margin-bottom: 30px;
 }
-form label{
-    margin-bottom: 35px;
-}
-
-form label .fa-solid{
-    font-size: 20px;
-    color: #cb232c;
-    margin-right: 10px;
-}
-form label input{
-    outline: none;
-    border: none;
-    background: linear-gradient(rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.0));
-    color: #252525;
-    border-bottom: solid 1px #ce1d61;
-    
-    padding: 0 5px;
-    font-size: 18px;
-}
-form label input::placeholder{
-    color: rgba(37, 37, 37, 0.5);
-}
-
-form .link{
-    text-align: center;
-    color: #252525;
-    margin-bottom: 15px;
-}
-
-form button{
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    background: linear-gradient(to right, #cb232c, #ce1d61);
-    padding: 10px 15px;
-    font-size: 20px;
-    transition: all 0.5s;
-    cursor: pointer;
-}
-form button:hover{
-    background: linear-gradient(to right, #ce1d61, #cb232c);
+@media (max-width: 640px){
+    .signup-button{
+        position: relative;
+        top: 245%;
+    }
 }
