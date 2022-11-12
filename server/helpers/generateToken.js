@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const tokenSign = async (user)=>{
-    const {empleado_id,rol_id,nombre} = user;
+    const {nombre,email,rol} = user;
     return jwt.sign(
         {
-            _id:empleado_id,
-            role:rol_id,
-            nombre,
+            role:rol,
+            name:nombre,
+            email,
         },
         process.env.JWT_SECRET,
         {
@@ -15,6 +15,21 @@ const tokenSign = async (user)=>{
     );
 }
 
+
+const verifyToken = async (token) => {
+    try {
+        return jwt.verify(token,process.env.JWT_SECRET);
+    } catch (e) {
+        return null;
+    }
+}
+
+const decodeSign = (token)=>{
+    return jwt.decode(token,null);
+}
+
 module.exports = {
-    tokenSign
+    tokenSign,
+    verifyToken,
+    decodeSign
 }

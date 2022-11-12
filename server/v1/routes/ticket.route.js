@@ -1,8 +1,13 @@
 const {Router} = require('express');
 const router = Router();
+const multer = require("multer");
+const upload = multer({dest: 'uploads/'});
+const express = require('express');
 const ticketController = require('../../controllers/ticket.controller.js');
-
-router.get('/',ticketController.getAllTickets);
-
-
+const checkAuth = require('../../middlewares/auth');
+router.get('/open',checkAuth,ticketController.getAllOpenTickets);
+router.get('/closed',checkAuth,ticketController.getAllClosedTickets);
+router.get('/approved',checkAuth,ticketController.getAllApprovedTickets);
+router.post('/create',checkAuth,ticketController.creationTickets);
+router.post('/saveImage',checkAuth,express.urlencoded({extended:true}),upload.array("files"),ticketController.saveImage);
 module.exports = router;

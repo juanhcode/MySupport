@@ -3,13 +3,16 @@ const app = express();
 const morgan = require('morgan');
 require('dotenv').config();
 const ticketsRouter = require('./v1/routes/ticket.route.js');
-const login = require('./controllers/auth.controller.js');
+const login = require('./v1/routes/user.route');
+const usuarios = require('./v1/routes/usuarios.route');
 //Middlewares
 app.use(express.json());
 app.use(morgan("dev"));
 
 app.use('/v1/tickets',ticketsRouter);
 app.use('/v1/login', login);
+app.use('/v1/user', usuarios);
+
 
 
 

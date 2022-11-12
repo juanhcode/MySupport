@@ -1,28 +1,35 @@
 const {tokenSign} = require('../helpers/generateToken.js');
-const pool = require('../database/db.js');
+const {compare} = require('../helpers/configBcrypt');
+const usuarioService = require('../services/usuario.service');
+//login de MySupport
 const login = async (req,res)=>{
+    const {email,password} = req.body;
     try{
-        const {email,password} = req.body;
-        if(!email){
+        const user = await usuarioService.loginByEmail(email);
+        if(user.rowCount == 0){
             res.status(404)
-            res.send({ error: 'User not found' })
+            res.send({ error: 'User not found' });
+            return;
         }
-        const user = await pool.query('SELECT * FROM empleado WHERE email = $1 and password = $2',[email,password]);
+        const checkPassword = await compare(password,user.rows[0].password);
         const tokenSession = await tokenSign(user.rows[0]);
-        res.send({
-            data:user.rows,
-            tokenSession
-        });
-    }catch(e){
-        console.log(e);
-    }
-}
-
-const register = async (req, res) => {
-    try{
-
-    }catch(error){
-
+        if(checkPassword){
+            res.status(200).send({
+                data:user.rows[0],
+                tokenSession
+            });
+            return;
+        }
+        if(!checkPassword){
+            res.status(409);
+            res.send({
+                error: 'Invalid password'
+            });
+            return;
+        }
+    }catch(err){
+        res.status(404)
+        res.send({ error: 'Algo ha ocurrido' });
     }
 }
 
