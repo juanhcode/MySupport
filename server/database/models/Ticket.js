@@ -1,4 +1,5 @@
 const pool = require('../db.js');
+const {v4:uuidv4} = require('uuid');
 
 const getAllOpenTickets = async ()=>{
     try {
@@ -30,12 +31,11 @@ const getAllApprovedTickets = async ()=>{
 
 
 const creationTickets = async (Ticket)=>{
-    const {ticket_id,empleado_id,titulo,descripcion,imagenURL,fecha_inicio,estado} = Ticket;
-    console.log("Model Ticket" + Ticket);
+    const {empleado_id,titulo,descripcion,imagenURL,fecha_inicio,estado} = Ticket;
     //TODO: Decir que el id del Ticket es un uuid y el empleado ID se manda por el body del payload del frontend o modificar en la tabla para que sea autoincrementable
     try{
         const ticketCreated = await pool.query(`INSERT INTO TICKET (TICKET_ID,EMPLEADO_ID,titulo,descripcion,imagenURL,fecha_inicio,estado) VALUES ($1,$2,$3,$4,$5,$6,$7)`,[
-            ticket_id,
+            uuidv4(),
             empleado_id,
             titulo,
             descripcion,

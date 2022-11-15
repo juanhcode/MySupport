@@ -15,7 +15,6 @@ const getAllApprovedTickets = async ()=>{
 }
 
 const creationTickets = async (newTicket)=>{
-    console.log("Service Ticket" + newTicket);
     const TicketCreated = await Ticket.creationTickets(newTicket);
     return TicketCreated;
 }

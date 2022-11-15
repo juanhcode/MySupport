@@ -7,11 +7,11 @@ const checkAuth = async (req,res,next) =>{
             next()
         }else{
             res.status(409);
-            res.send({error:"Tu por aqui no pasas!"});
+            res.send({error:"Unauthorized"});
         }
     } catch (error) {
         res.status(409);
-        res.send({error:"Tu por aqui no pasas!"})
+        res.send({error:"Unauthorized"})
     }
 }
 
