@@ -200,60 +200,74 @@ nav {
     background-color: var(--white);
     color: var(--hospital-blue);
 }
-.container-ticket-abierto {
+h1{
+    font-size: 28px;
+}
+.titulo{
     display: flex;
-    flex-wrap: wrap;
-    padding: 10px;   
+    justify-content: center;
 }
-.container-tablas{
+.form{
     background-color: var(--white);
-    border: 1px solid var(--text-input-field);
-    margin: 10px;
-    /* display: none; */
+    border-top: 1px solid var(--very-light-pink);
+    border-bottom: 1px solid var(--very-light-pink);
+    /* margin: 10px; */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
-.container-tablas .main{
-    background-color: var(--black);
-    border: 1px solid var(--text-input-field);
-    margin: 10px;
-}
-button{
-    text-decoration: none;
+
+.form a {
     color: var(--hospital-blue);
-    margin-right: 10px;
-    text-decoration: none;
-    background-color: var(--white);
-    /* color: var(--hospital-blue); */
-    border: 1px solid var(--hospital-blue);
-    border-radius: 8px;
-    padding: 8px;
-    cursor: pointer;
-}
-table {
+    font-size: var(--sm);
     text-align: center;
-    display: inline-table;
-    margin: 10px;
-    table-layout: fixed;
-    width: 30%;
-    height: 30%;
-    border-collapse: collapse;
-    border: 1px solid var(--very-light-pink);
-    
-  }
-/* #container-tablas{
-    display: none;
-} */
-@media (max-width: 640px) {
-    .menu {
-        display: block;
-    }
-    .logo{
-        position: relative;
-        right: 15px;
-    }
-    .navbar-left ul {
-        display: none;
-    }
-    .navbar-email {
-        display: none;
-    }
+    text-decoration: none;
+    margin-bottom: 54px;
+}
+label {
+    font-size: var(--sm);
+    font-weight: 700;
+    margin: 0 0 2px 12px;
+}
+input{
+    width: 53%;
+    background-color: var(--text-input-field);
+    border: 1px solid var(--black);
+    border-radius: 8px;
+    height: 27%;
+    font-size: var(--md);
+    padding: 6px;
+    margin: 12px;
+}
+
+textarea {
+    background-color: var(--text-input-field);
+    border: 1px solid var(--black);
+    border-radius: 8px;
+    width: 53%;
+    height: 95px;
+    padding: 6px;
+    margin: 12px;
+}
+.boton-acceder{
+    display: flex;
+    justify-content: end;
+}
+.primary-button{
+    background-color: var(--hospital-blue);
+    border-radius: 81px;
+    border: none;
+    color: var(--white);
+    width: 8%;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 34px;
+}
+
+.form ul li {
+    list-style: none;
+}
+.file {
+    border: none;
 }

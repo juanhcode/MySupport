@@ -1,38 +1,37 @@
- const API_URL = "https://mocki.io/v1/1230ff03-b527-49e2-b70d-2162b2d961f4";
+const boton  = document.getElementById("btn_acceder");
+const password = document.getElementById("password");
+const email = document.getElementById("email");
+// console.log(password);
+// console.log(email);
+boton.addEventListener("click", function(e) {
+  e.preventDefault();
+  const user = {
+    email: email.value,
+    password: password.value
+  }
+  const userJson = JSON.stringify(user);
 
-// const HTMLResponse = document.query("#username", "#password");
+  const login = async()=> {
+    try {
+      const response = await fetch("https://mysupport-production.up.railway.app/v1/login", {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: userJson
+      }); 
+      const data = await response.json();
+      const {tokenSession } = data
+      console.log(tokenSession)
+      localStorage.setItem("token", tokenSession)
+      if(response.status == 200){
+        window.location.href = "menu_Principal.html"
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  login();
+})
 
-fetch(API_URL)
-  .then((response) => response.json())
-.then((data) => console.log(data))
 
-
-// const xml = new XMLHttpRequest();
-
-// function onRequestHandler(){
-//   if(this.readyState == 4 && this.status == 200){
-//     const data = JSON.parse(this.response);
-//     const HTMLResponse = document.querySelector("#app");
-
-//     const tpl = data.map((user) => '<li>${user.name} correo:${user.email}</li>');
-//     HTMLResponse.innerHTML = '<ul>${tpl}</ul>'
-//   }
-// }
-// xhr.addEventListener('load', onRequestHandler);
-// xhr.open('GET', '${API_URL}/users');
-// xhr.send();
-
-
-
-// const username = document.getElementById('username')
-// const password = document.getElementById('password')
-// const button = document.getElementById("button")
-
-// button.addEventListener('click', (e) => {
-//   e.preventDefault()
-//   const data = {
-//     username: username.value,
-//     password: password.value
-//   }
-//   console.log(data)
-)
