@@ -35,10 +35,9 @@ const saveImage =async (req,res) => {
 }
 //Creacion de tickets
 const creationTickets = async (req,res)=>{
-    const {ticket_id,empleado_id,titulo,descripcion,imagenURL,fecha_inicio,estado} = req.body;
+    const {empleado_id,titulo,descripcion,imagenURL,fecha_inicio,estado} = req.body;
     //TODO:validar que los campos no sean vacios y si lo son responder con un mensaje de error o algo asi xd
     const Ticket = {
-        ticket_id,
         empleado_id,
         titulo,
         descripcion,
