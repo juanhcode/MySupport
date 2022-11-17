@@ -25,7 +25,9 @@ btnAbierto.addEventListener("click", async () => {
 const pintarTickets = (tickets) => {
   for (let i = 0; i < tickets.length; i++) {
     const { ticket_id, titulo, descripcion, fecha_inicio } = tickets[i];
-    container.innerHTML += `<table> <tr class= "borde-superior"> <th> ${ticket_id} <th> Resuelto </th> </th> </tr> <tr> <th>Titulo</th> <td> ${titulo} </td> </tr> <tr> <th>Fecha</th> <td>${fecha_inicio.split('T')[0]}</td> </tr> <tr> <th>Descripción</th> <td>${descripcion}</td> </tr> <tr class = "borde-inferior"> <th><a class = "etiquetaA" href="/">Ver caso</a></th> </tr></table>`;
+    container.innerHTML += `<table> <tr class= "borde-superior"> <th> ${ticket_id} <th> Resuelto </th> </th> </tr> <tr> <th>Titulo</th> <td> ${titulo} </td> </tr> <tr> <th>Fecha</th> <td>${
+      fecha_inicio.split("T")[0]
+    }</td> </tr> <tr> <th>Descripción</th> <td>${descripcion}</td> </tr> <tr class = "borde-inferior"> <th><a class = "etiquetaA" href="/">Ver caso</a></th> </tr></table>`;
   }
 
   const bordeSuperior = document.querySelectorAll(".borde-superior");
