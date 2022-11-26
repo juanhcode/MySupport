@@ -40,7 +40,101 @@ const auth = require('../../controllers/auth.controller.js');
  *              estado: false
  */
 
+//post usuario
+/**
+ * @swagger
+ * /v1/user/post/:
+ *  post:
+ *      summary: crear usuario
+ *      tags: [User]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/User'
+ *      responses:
+ *          200:
+ *              description: Nuevo usuario creado.
+ * 
+ *      security:
+ *             - bearerAuth : []
+ */
 
+//get usuario
+/**
+ * @swagger
+ * /v1/user/get/:
+ *  get:
+ *      summary: retornar todos los usuarios
+ *      tags: [User]
+ *      responses:
+ *          200:
+ *              description: todos los usuarios
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/User'
+ *      security:
+ *             - bearerAuth : []
+ */
+
+//put usuario
+/**
+ * @swagger
+ * /v1/user/put/:id:
+ *  put:
+ *      summary: actualizar usuario
+ *      tags: [User]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: id del usuario
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/User'
+ *      responses:
+ *          200:
+ *              description: usuario actualizado
+ *          404:
+ *              description: usuario no
+ * 
+ *      security:
+ *             - bearerAuth : []
+ */
+
+/**
+ * @swagger
+ * /v1/user/delete/:id:
+ *  delete:
+ *      summary: eliminar un usuario
+ *      tags: [User]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: id del usuario
+ *      responses:
+ *          200:
+ *              description: usuario eliminado
+ *          404:
+ *              description: usuario no encontrado
+ * 
+ *      security:
+ *        - bearerAuth : []
+ */
 
 /**
  * @swagger

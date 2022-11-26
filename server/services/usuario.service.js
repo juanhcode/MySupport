@@ -4,6 +4,21 @@ const creationUsuarios = async (newUsuario)=>{
     return UsuarioCreated;
 }
 
+const getPaginatedUsuarios = async (limite, desde) =>{
+    const UsuariosList = await Usuario.readUsuarios(limite, desde);
+    return UsuariosList;
+}
+
+const updateUsuario = async (updateUsuario) =>{
+    const UsuariosList = await Usuario.updatingUsuario(updateUsuario);
+    return UsuariosList;
+}
+
+const deleteUsuario = async (id) =>{
+    const UsuarioDelete = await Usuario.deletingUsuario(id);
+    return UsuarioDelete;
+}
+
 const loginByEmail = async (email)=>{
     const userLoggedIn = await Usuario.loginByEmail(email);
     return userLoggedIn;
@@ -12,5 +27,8 @@ const loginByEmail = async (email)=>{
 
 module.exports = {
     creationUsuarios,
-    loginByEmail
+    loginByEmail,
+    getPaginatedUsuarios,
+    updateUsuario,
+    deleteUsuario
 }
