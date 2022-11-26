@@ -4,7 +4,7 @@
     <a href="#description">Description</a> &bull;
     <a href="#installation">Installation</a> &bull;
     <a href="#stack">Stack</a> &bull;
-    <a href="#contributors">Contributors.</a>
+    <a href="#contributors">Contributors</a>
 </p>
 
 ## Appearance
