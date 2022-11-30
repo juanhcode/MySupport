@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 const {createValidator} = require('express-joi-validation');
-const  {post_put_UsuarioSchema, usuarioParamSchema} = require('../../helpers/schemas');
+const  {post_put_UsuarioSchema, usuarioParamSchema} = require('../../schemas/schemas');
 const usuariosControllers = require('../../controllers/usuario.controller');
 const validator = createValidator();
 
