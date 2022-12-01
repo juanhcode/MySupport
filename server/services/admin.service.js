@@ -10,7 +10,25 @@ const cantidadTotalTicketsPorEmpresa = async (dominio) => {
     return filtro;
 }
 
+const cantidadEmpleadosPorEmpresa = async (dominio) => {
+    const filtro = await Admin.getEmpleadosPorEmpresa(dominio);
+    return filtro;
+} 
+
+const cantidadSupervisoresPorEmpresa = async (dominio) => {
+    const filtro = await Admin.getSupervisorPorEmpresa(dominio);
+    return filtro;
+} 
+
+const cantidadAgentesPorEmpresa = async (dominio) => {
+    const filtro = await Admin.getAgentePorEmpresa(dominio);
+    return filtro;
+} 
+
 module.exports = {
     usuarioPorEmpresaService,
-    cantidadTotalTicketsPorEmpresa
+    cantidadTotalTicketsPorEmpresa,
+    cantidadEmpleadosPorEmpresa,
+    cantidadSupervisoresPorEmpresa,
+    cantidadAgentesPorEmpresa
 }
