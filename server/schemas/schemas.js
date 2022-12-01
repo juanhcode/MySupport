@@ -5,7 +5,6 @@ const usuarioParamSchema = joi.object({
 })
 
 const post_put_UsuarioSchema = joi.object({
-    id: joi.string().required(),
     nombre: joi.string().pattern(new RegExp('[a-zA-Z0-9]')).max(30).required(),
     apellidos: joi.string().pattern(new RegExp('[a-zA-Z0-9]')).max(50).required(),
     password: joi.string().pattern(new RegExp('[a-zA-Z0-9]')).max(100).required(),
