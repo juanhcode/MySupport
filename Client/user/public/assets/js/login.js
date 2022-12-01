@@ -23,7 +23,7 @@ const login = async (user) => {
             body: user
         });
         const data = await response.json();
-        console.log(data);
+        const rol = data.data?.rol;
         const { tokenSession } = data
         console.log(tokenSession)
         localStorage.setItem("token", tokenSession)
@@ -33,8 +33,12 @@ const login = async (user) => {
         if (response.status == 409) {
             message.textContent = data?.error;
         }
-        if (response.status == 200) {
+        if (response.status == 200 && rol == 'administrador') {
             window.location.href = "../../../../../Client/user/public/index.html";
+        }else if(response.status == 200 && rol == 'empleado'){
+            window.location.href = '../../../../../Client/user/employee/index.html'
+        }else if(response.status == 200 && rol == 'supervisor'){
+            //window.location.href = '../../../../../Client/user/employee/index.html'
         }
     } catch (error) {
         console.log(error);
