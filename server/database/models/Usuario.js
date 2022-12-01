@@ -1,22 +1,24 @@
 const pool = require("../db.js");
+const {v4:uuidv4} = require('uuid');
 
 const createdUsuarios = async (Usuario) => {
     let queryTwo;
-  const { id, nombre, apellidos, passwordHash, email, rol, estado } = Usuario;
+    let uuid = uuidv4();
+  const { nombre, apellidos, passwordHash, email, rol, estado } = Usuario;
   try {
     //Fetch all three queries in sequence
     let queryOne = await pool.query("INSERT INTO USUARIO (ID,nombre,apellidos,password,email,rol,estado) VALUES ($1,$2,$3,$4,$5,$6,$7);",
-    [id, nombre, apellidos, passwordHash, email, rol, estado]);
+    [uuid, nombre, apellidos, passwordHash, email, rol, estado]);
 
     switch (rol) {
         case "agente":
-            queryTwo = await pool.query("INSERT INTO AGENTE (ID) VALUES ($1)",[id]);
+            queryTwo = await pool.query("INSERT INTO AGENTE (ID) VALUES ($1)",[uuid]);
             break;
         case "supervisor":
-            queryTwo = await pool.query("INSERT INTO SUPERVISOR (ID) VALUES ($1)",[id]);
+            queryTwo = await pool.query("INSERT INTO SUPERVISOR (ID) VALUES ($1)",[uuid]);
             break;
         case "empleado":
-            queryTwo = await pool.query("INSERT INTO EMPLEADO (ID) VALUES ($1)",[id]);
+            queryTwo = await pool.query("INSERT INTO EMPLEADO (ID) VALUES ($1)",[uuid]);
             break;
         case "administrador":
             console.log("Admin Creado");
