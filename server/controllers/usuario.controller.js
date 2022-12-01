@@ -14,7 +14,7 @@ const creationUsuarios = async (req,res)=>{
     }
     //TODO:validar de que si llega algun campo vacio responder con un status diferente y enviar ¡Ups! Algo salió mal
     const usuarioCreated = await usuarioService.creationUsuarios(Usuario);
-    if(!usuarioCreated.rowCount == 1){
+    if(!usuarioCreated.rowCount == 2){
         res.status(500).send({
             message:"¡Ups! Algo salió mal"
         });

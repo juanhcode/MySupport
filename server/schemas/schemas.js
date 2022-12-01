@@ -1,7 +1,7 @@
 const joi = require('joi');
 
 const usuarioParamSchema = joi.object({
-    id: joi.number().required()
+    id: joi.string().required()
 })
 
 const post_put_UsuarioSchema = joi.object({
