@@ -19,8 +19,8 @@ formulario.addEventListener("submit", function (e) {
   const formulario = async () => {
     const data = new FormData();
     console.log(archivo);
-    
-        data.append("files", archivo.files);
+
+    data.append("files", archivo.files);
     console.log(data)
     const token = localStorage.getItem("token");
     try {
