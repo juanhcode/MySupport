@@ -10,10 +10,11 @@ boton.addEventListener("click", function(e) {
     password: password.value
   }
   const userJson = JSON.stringify(user);
+  console.log(userJson);
 
   const login = async()=> {
     try {
-      const response = await fetch("https://mysupport-production.up.railway.app/v1/login", {
+      const response = await fetch("http://localhost:4000/v1/login", {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json'
@@ -24,9 +25,10 @@ boton.addEventListener("click", function(e) {
       const {tokenSession } = data
       console.log(tokenSession)
       localStorage.setItem("token", tokenSession)
+      /*
       if(response.status == 200){
         window.location.href = "menu_Principal.html"
-      }
+      }*/
     } catch (error) {
       console.log(error);
     }
