@@ -3,6 +3,11 @@ const totalTickets = document.getElementById('ticketsTotal');
 const tbody = document.getElementById('tbodyUser');
 import { Data } from './modules/componentIndex.js';
 document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem("token");
+  if(token == '' || token === undefined){
+    window.location.href = "../../../../../Client/user/public/pages/login.html";
+  }
+  console.log(token);
   const number = await getTotalUsers();
   totalUsers.textContent = number;
   const tickets = await getTotalTickets();
