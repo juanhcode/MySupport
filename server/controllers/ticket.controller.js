@@ -35,15 +35,19 @@ const saveImage =async (req,res) => {
 }
 //Creacion de tickets
 const creationTickets = async (req,res)=>{
-    const {empleado_id,titulo,descripcion,imagenURL,fecha_inicio,estado} = req.body;
+    const {empleado_id, agente_id, estado_id, titulo,descripcion,imagenURL,fecha_inicio, fecha_final, estado_borrado, empresa} = req.body;
     //TODO:validar que los campos no sean vacios y si lo son responder con un mensaje de error o algo asi xd
     const Ticket = {
         empleado_id,
+        agente_id,
+        estado_id,
         titulo,
         descripcion,
         imagenURL,
         fecha_inicio,
-        estado
+        fecha_final,
+        estado_borrado,
+        empresa
     }
     const tickets = await ticketService.creationTickets(Ticket);
     if(tickets){

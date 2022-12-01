@@ -5,6 +5,12 @@ const usuarioPorEmpresaService = async (dominio) => {
     return filtro;
 }
 
+const cantidadTotalTicketsPorEmpresa = async (dominio) => {
+    const filtro = await Admin.getTicketsPorEmpresa(dominio);
+    return filtro;
+}
+
 module.exports = {
-    usuarioPorEmpresaService
+    usuarioPorEmpresaService,
+    cantidadTotalTicketsPorEmpresa
 }
