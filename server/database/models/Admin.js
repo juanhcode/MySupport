@@ -52,10 +52,23 @@ const getAgentePorEmpresa = async (dominio) => {
     }
 }
 
+const getTicketsPorArea = async (area) => {
+
+    try {
+        const selectTicketsPorArea = await pool.query(`
+        SELECT T.TITULO, T.DESCRIPCION FROM TICKET T INNER JOIN EMPLEADO E ON T.EMPLEADO_ID = E.ID
+        INNER JOIN AREA A ON E.AREA_ID = A.AREA_ID WHERE A.nombre = $1;`, [area])
+        return selectTicketsPorArea.rows;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     getAllUsers,
     getTicketsPorEmpresa,
     getEmpleadosPorEmpresa,
     getSupervisorPorEmpresa,
-    getAgentePorEmpresa
+    getAgentePorEmpresa,
+    getTicketsPorArea
 }
