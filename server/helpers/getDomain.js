@@ -10,4 +10,6 @@ const getDomain = async (auth) => {
   return domain;
 };
 
-module.exports = getDomain
+module.exports = {
+  getDomain
+}

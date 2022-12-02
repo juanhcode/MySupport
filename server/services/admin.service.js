@@ -25,10 +25,16 @@ const cantidadAgentesPorEmpresa = async (dominio) => {
     return filtro;
 } 
 
+const cantidadTicketsPorArea = async (area) => {
+    const filtro = await Admin.getTicketsPorArea(area);
+    return filtro;
+} 
+
 module.exports = {
     usuarioPorEmpresaService,
     cantidadTotalTicketsPorEmpresa,
     cantidadEmpleadosPorEmpresa,
     cantidadSupervisoresPorEmpresa,
-    cantidadAgentesPorEmpresa
+    cantidadAgentesPorEmpresa,
+    cantidadTicketsPorArea
 }
