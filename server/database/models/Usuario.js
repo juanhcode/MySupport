@@ -1,4 +1,5 @@
 const pool = require("../db.js");
+const express = require('express')
 const {v4:uuidv4} = require('uuid');
 
 const createdUsuarios = async (Usuario) => {
@@ -31,7 +32,13 @@ const createdUsuarios = async (Usuario) => {
     //Return the responses from the function
     return [queryOne, queryTwo];
   } catch (error) {
-    console.log(error);
+    if(error.code == "23505") {
+      console.error(error.message);
+      const errorObj = new Error("Email Already Exists!");
+      errorObj.status = 400;
+      next(errorObj);
+      console.log(errorObj.code);
+    }
   }
 };
 

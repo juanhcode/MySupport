@@ -8,6 +8,7 @@ const login = require('./v1/routes/user.route');
 const usuarios = require('./v1/routes/usuarios.route');
 const administrador = require('./v1/routes/admin.route');
 const empresa = require('./v1/routes/empresa.route');
+const supervisor = require('./v1/routes/supervisor.route')
 const path = require("path");
 //Swagger
 const swaggerUI = require("swagger-ui-express");
@@ -39,6 +40,7 @@ app.use('/v1/login', login);
 app.use('/v1/user', usuarios);
 app.use('/v1/admin', administrador);
 app.use('/v1/empresa', empresa);
+app.use('/v1/supervisor', supervisor);
 
 
 
