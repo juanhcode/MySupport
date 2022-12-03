@@ -9,6 +9,7 @@ const usuarios = require('./v1/routes/usuarios.route');
 const administrador = require('./v1/routes/admin.route');
 const empresa = require('./v1/routes/empresa.route');
 const supervisor = require('./v1/routes/supervisor.route')
+const agente = require('./v1/routes/agente.route')
 const path = require("path");
 //Swagger
 const swaggerUI = require("swagger-ui-express");
@@ -41,9 +42,7 @@ app.use('/v1/user', usuarios);
 app.use('/v1/admin', administrador);
 app.use('/v1/empresa', empresa);
 app.use('/v1/supervisor', supervisor);
-
-
-
+app.use('/v1/agente', agente);
 
 app.listen(process.env.PORT || 3000,()=>{
     console.log("Servidor prendido en el puerto " + process.env.PORT);

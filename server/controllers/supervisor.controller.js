@@ -57,7 +57,7 @@ const listTicketsConAgente = async (req, res) => {
   const listSupervisoresConAgente = async (req, res) => {
     const { authorization } = req.headers;
     const supervisor_id = await getId(authorization);
-    const { limite = 5, desde = 0 } = req.query;
+    const { limite = 5, desde = 0 } = req.params;
     console.log(supervisor_id + "----------------------------------------------");
     const result = await supervisorService.getSupervisores_Agentes(supervisor_id, desde, limite);
   
