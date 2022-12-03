@@ -1,9 +1,10 @@
 const pool = require("../db.js");
 const {v4:uuidv4} = require('uuid');
 
+let uuid = uuidv4();
+
 const createdUsuarios = async (Usuario) => {
     let queryTwo;
-    let uuid = uuidv4();
   const { nombre, apellidos, passwordHash, email, rol, estado, area_id } = Usuario;
   try {
     //Fetch all three queries in sequence
@@ -33,6 +34,18 @@ const createdUsuarios = async (Usuario) => {
   } catch (error) {
     console.log(error.code);
   }
+};
+
+const asignarSupervisorAgente = async (supervisor_id) => {
+try {
+  //Fetch all three queries in sequence
+  let queryOne = await pool.query("INSERT INTO SUPERVISOR_ASIGNA_AGENTE (AGENTE_ID, SUPERVISOR_ID)",[uuid, supervisor_id]);
+
+  //Return the responses from the function
+  return queryOne;
+} catch (error) {
+  console.log(error.code);
+}
 };
 
 const readUsuarios = async (limite, desde) => {
@@ -104,5 +117,6 @@ module.exports = {
   loginByEmail,
   readUsuarios,
   updatingUsuario,
-  deletingUsuario
+  deletingUsuario,
+  asignarSupervisorAgente
 };
