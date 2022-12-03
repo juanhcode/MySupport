@@ -31,7 +31,7 @@ const createdUsuarios = async (Usuario) => {
     //Return the responses from the function
     return [queryOne, queryTwo];
   } catch (error) {
-    console.log(error);
+    console.log(error.code);
   }
 };
 
