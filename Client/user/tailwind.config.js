@@ -3,6 +3,9 @@ const plugin = require('tailwindcss/plugin')
 const Color = require('color')
 
 module.exports = {
+  content: [
+    "./node_modules/flowbite/**/*.js"
+  ],
   purge: ['public/**/*.html'],
   theme: {
     themeVariants: ['dark'],
@@ -198,6 +201,7 @@ module.exports = {
     boxShadow: ['focus', 'dark:focus'],
   },
   plugins: [
+    require('flowbite/plugin'),
     require('tailwindcss-multi-theme'),
     require('@tailwindcss/custom-forms'),
     plugin(({ addUtilities, e, theme, variants }) => {

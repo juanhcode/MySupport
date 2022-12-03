@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const tokenSign = async (user)=>{
-    const {nombre,email,rol} = user;
+    const {nombre,email,rol,id} = user;
     return jwt.sign(
         {
+            id,
             role:rol,
             name:nombre,
             email,

@@ -8,6 +8,7 @@ router.get('/get/tickets', checkAuth,administradorControllers.getTotalTickets);
 router.get('/get/empleados', checkAuth,administradorControllers.getEmpleadosPorEmpresa);
 router.get('/get/supervisores', checkAuth,administradorControllers.getSupervisorPorEmpresa);
 router.get('/get/agentes', checkAuth,administradorControllers.getAgentePorEmpresa);
+router.get('/get/ticketsPorEmpresa', checkAuth,administradorControllers.getTotalTicketsPorArea);
 
 module.exports = router;
 
