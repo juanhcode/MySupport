@@ -6,7 +6,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         const {id,nombre,apellidos,rol,email} = supervisor;
         Data(tbody,id,nombre,apellidos,rol,email)
     })
+    const btnEdit = document.querySelectorAll('#edit');
+    calledModalls(btnEdit,data.result);
 });
+
+const calledModalls = (array,user)=>{
+    array.forEach((boton,index)=>{
+        boton.addEventListener('click',()=>{
+            localStorage.setItem('userSelect',JSON.stringify(user[index]));
+            window.location.href = "../../../../../Client/user/public/editarUser.html";
+        })
+    })
+}
 
 
 const getSupervisores = async () => {
