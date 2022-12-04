@@ -34,7 +34,7 @@ const swaggerSpec = {
 //Middlewares
 app.use(express.json());
 app.use(cors({
-    origin:'*'
+    origin:['http://127.0.0.1:5501','*']
 }));
 app.use(morgan("dev"));
 app.use("/v1/doc",swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
