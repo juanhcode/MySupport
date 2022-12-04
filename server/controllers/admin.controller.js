@@ -88,9 +88,10 @@ const getAgentePorEmpresa = async (req, res) => {
 };
 
 const getTotalTicketsPorArea = async (req, res) => {
-  const {nombre} = req.body;
+  const { authorization } = req.headers;
+  const domain = await getDomain(authorization);
 
-  const result = await administradorService.cantidadTicketsPorArea(nombre);
+  const result = await administradorService.cantidadTicketsPorArea(domain);
 
   if (result === null) {
     res.status(404).send({

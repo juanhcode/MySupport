@@ -52,12 +52,15 @@ const getAgentePorEmpresa = async (dominio) => {
     }
 }
 
-const getTicketsPorArea = async (area) => {
+const getTicketsPorArea = async (dominio) => {
 
     try {
         const selectTicketsPorArea = await pool.query(`
-        SELECT T.TITULO, T.DESCRIPCION FROM TICKET T INNER JOIN EMPLEADO E ON T.EMPLEADO_ID = E.ID
-        INNER JOIN AREA A ON E.AREA_ID = A.AREA_ID WHERE A.nombre = $1;`, [area])
+
+        SELECT A.NOMBRE, COUNT(T.TICKET_ID) FROM TICKET T INNER JOIN EMPLEADO E ON T.EMPLEADO_ID = E.ID 
+        INNER JOIN AREA A ON A.AREA_ID = E.AREA_ID INNER JOIN USUARIO U ON U.ID = E.iD 
+        WHERE U.EMAIL ILIKE '%'||$1||'%' GROUP BY A.NOMBRE;
+        `, [dominio])
         return selectTicketsPorArea.rows;
     } catch (error) {
         console.log(error);
