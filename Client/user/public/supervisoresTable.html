@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />
     <title>Tables - Windmill Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="./assets/js/init-alpine.js"></script>
+    <script src="./assets/js/focus-trap.js" defer></script>
 </head>
 
 <body>
@@ -281,103 +283,180 @@
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                         Supervisores
                     </h2>
-                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                        <div class="w-full overflow-x-auto">
-                            <table class="w-full whitespace-no-wrap">
-                                <thead>
-                                    <tr
-                                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                        <th class="px-4 py-3">Supervisor</th>
-                                        <th class="px-4 py-3">ID</th>
-                                        <th class="px-4 py-3">Estado</th>
-                                        <th class="px-4 py-3">Email</th>
-                                        <th class="px-4 py-3">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" id="tbodySupervisor">
-                                    
-                                </tbody>
-                            </table>
+                    <div id="loadingTable">
+                        <div class="text-center" id="spinner">
+                            <div role="status">
+                                <svg class="inline mr-2 w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                        fill="currentColor" />
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                        fill="currentFill" />
+                                </svg>
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
-                        <div
-                            class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                            <span class="flex items-center col-span-3">
-                                Showing 21-30 of 100
-                            </span>
-                            <span class="col-span-2"></span>
-                            <!-- Pagination -->
-                            <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                                <nav aria-label="Table navigation">
-                                    <ul class="inline-flex items-center">
-                                        <li>
+                        <div class="w-full overflow-hidden rounded-lg shadow-xs" style="display: none" id="tabla">
+                            <div class="w-full overflow-x-auto">
+                                <table class="w-full whitespace-no-wrap">
+                                    <thead>
+                                        <tr
+                                            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                            <th class="px-4 py-3">Supervisor</th>
+                                            <th class="px-4 py-3">ID</th>
+                                            <th class="px-4 py-3">Estado</th>
+                                            <th class="px-4 py-3">Email</th>
+                                            <th class="px-4 py-3">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                                        id="tbodySupervisor">
+
+                                    </tbody>
+                                </table>
+                                <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+                                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition ease-in duration-150"
+                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                    class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+                                    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+                                        x-transition:enter-start="opacity-0 transform translate-y-1/2"
+                                        x-transition:enter-end="opacity-100"
+                                        x-transition:leave="transition ease-in duration-150"
+                                        x-transition:leave-start="opacity-100"
+                                        x-transition:leave-end="opacity-0  transform translate-y-1/2"
+                                        @click.away="closeModal" @keydown.escape="closeModal"
+                                        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+                                        role="dialog" id="modal">
+                                        <header class="flex justify-end">
                                             <button
-                                                class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                                aria-label="Previous">
-                                                <svg class="w-4 h-4 fill-current" aria-hidden="true"
-                                                    viewBox="0 0 20 20">
+                                                class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+                                                aria-label="close" @click="closeModal">
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img"
+                                                    aria-hidden="true">
                                                     <path
-                                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                                         clip-rule="evenodd" fill-rule="evenodd"></path>
                                                 </svg>
                                             </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                1
+                                        </header>
+                                        <div class="mt-4 mb-6">
+                                            <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+                                                ¿Estás seguro de que quieres eliminar este usuario?
+                                            </p>
+                                            <div class="text-center" id="spinnerModal" style="display: none;">
+                                                <div role="status">
+                                                    <svg class="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                                                        viewBox="0 0 100 101" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                                            fill="currentColor" />
+                                                        <path
+                                                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                                            fill="currentFill" />
+                                                    </svg>
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm text-gray-700 dark:text-gray-400" id="descriptionModal">
+                                            </p>
+                                        </div>
+                                        <footer
+                                            class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+                                            <button @click="closeModal"
+                                                class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                                                Cancel
                                             </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                2
+                                            <button id="btnAceptar"
+                                                class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                                                Aceptar
                                             </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                3
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                4
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <span class="px-3 py-1">...</span>
-                                        </li>
-                                        <li>
-                                            <button
-                                                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                8
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                9
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                                                aria-label="Next">
-                                                <svg class="w-4 h-4 fill-current" aria-hidden="true"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                        clip-rule="evenodd" fill-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </span>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                                <span class="flex items-center col-span-3">
+                                    Showing 21-30 of 100
+                                </span>
+                                <span class="col-span-2"></span>
+                                <!-- Pagination -->
+                                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                                    <nav aria-label="Table navigation">
+                                        <ul class="inline-flex items-center">
+                                            <li>
+                                                <button
+                                                    class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                                                    aria-label="Previous">
+                                                    <svg class="w-4 h-4 fill-current" aria-hidden="true"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                                    1
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                                    2
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                                    3
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                                    4
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span class="px-3 py-1">...</span>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                                    8
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                                    9
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                                                    aria-label="Next">
+                                                    <svg class="w-4 h-4 fill-current" aria-hidden="true"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                            clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
             </main>
         </div>
     </div>

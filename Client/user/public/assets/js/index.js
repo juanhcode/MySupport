@@ -131,8 +131,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     spinner.style.display = 'none';
     tabla.style.display="block";
   }
-  console.log(await getTicketsPorArea());
-
 })
 
 
@@ -239,3 +237,4 @@ const getUsers = async () => {
     console.log(error);
   }
 }
+

@@ -7,7 +7,7 @@ const btnSubmit = document.getElementById('btn-submit');
 const spinner = document.getElementById('spinner');
 const msgDescription = document.getElementById('descriptionModal');
 const btnRadio = document.querySelectorAll('input[name="accountType"]');
-if(msgDescription.textContent == '                        '){
+if (msgDescription.textContent == '                        ') {
     console.log("No hay nada");
 }
 
@@ -24,8 +24,9 @@ form.addEventListener('submit', async (e) => {
     }
     const userJson = JSON.stringify(user);
     const response = await crearUsuario(userJson);
+    console.log(response);
     console.log(response.status);
-    await messageModal(response.status,response.data.message,msgDescription);;
+    await messageModal(response.status, response.data.message, msgDescription);;
 
 })
 
@@ -50,15 +51,37 @@ const crearUsuario = async (user) => {
     }
 }
 
-const messageModal = async (status,message, component) => {
+const messageModal = async (status, message, component) => {
     if (status == 201) {
         component.textContent = message;
-        spinner.style.display="none"
+        spinner.style.display = "none"
+    }
+    if (status == 400) {
+        component.textContent = 'Debe introducir todos los datos';
+        spinner.style.display = "none"
+    }
+    if (status == 500) {
+        component.textContent = message;
+        spinner.style.display = "none"
     }
 }
 
-const recargar= ()=>{
-    console.log("Siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+const recargar = () => {
+    const valueRadio = getValueRadio(btnRadio);
+    switch (valueRadio) {
+        case 'empleado':
+            window.location.href = "../../../../../Client/user/public/empleadosTable.html";
+            break;
+        case 'agente':
+            window.location.href = "../../../../../Client/user/public/agenteTable.html";
+            break;
+        case 'supervisor':
+            window.location.href = "../../../../../Client/user/public/supervisoresTable.html";
+            break;
+        default:
+            window.location.href = "../../../../../Client/user/public/index.html";
+            break;
+    }
 }
 
 const getValueRadio = (radioArray) => {
