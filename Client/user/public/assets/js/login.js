@@ -15,7 +15,7 @@ form.addEventListener('submit', async (e) => {
 
 const login = async (user) => {
     try {
-        const response = await fetch("http://localhost:4000/v1/login", {
+        const response = await fetch("https://mysupport-production.up.railway.app/v1/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ const login = async (user) => {
         }else if(response.status == 200 && rol == 'empleado'){
             window.location.href = '../../../../../Client/user/employee/index.html'
         }else if(response.status == 200 && rol == 'supervisor'){
-            //window.location.href = '../../../../../Client/user/employee/index.html';
+            window.location.href = '../../../../../Client/user/overseer/index.html'
         }
     } catch (error) {
         console.log(error);
