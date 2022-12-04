@@ -22,7 +22,7 @@ const calledModalls = (array,user)=>{
 const getSupervisores = async () => {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:4000/v1/admin/get/supervisores",
+        const response = await fetch("https://mysupport-production.up.railway.app/v1/admin/get/supervisores",
             {
                 headers: {
                     Accept: "application/json",
