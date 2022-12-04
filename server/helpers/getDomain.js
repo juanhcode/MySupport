@@ -10,4 +10,16 @@ const getDomain = async (auth) => {
   return domain;
 };
 
-module.exports = getDomain
+const getId = async (auth) => {
+  const token = auth.split(" ")[1];
+  const user = decodeSign(token);
+  const { id } = user;
+  const idAgente = id;
+  
+  return idAgente;
+};
+
+module.exports = {
+  getDomain,
+  getId
+}

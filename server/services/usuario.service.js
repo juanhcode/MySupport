@@ -20,6 +20,11 @@ const deleteUsuario = async (id) =>{
     return UsuarioDelete;
 }
 
+const postAsignaSupervisor = async (supervisor_id) =>{
+    const filter = await Usuario.asignarSupervisorAgente(supervisor_id);
+    return filter;
+}
+
 const loginByEmail = async (email)=>{
     const userLoggedIn = await Usuario.loginByEmail(email);
     return userLoggedIn;
@@ -31,5 +36,6 @@ module.exports = {
     loginByEmail,
     getPaginatedUsuarios,
     updateUsuario,
-    deleteUsuario
+    deleteUsuario,
+    postAsignaSupervisor
 }

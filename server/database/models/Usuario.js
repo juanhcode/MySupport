@@ -1,10 +1,11 @@
 const pool = require("../db.js");
 const {v4:uuidv4} = require('uuid');
 
+let uuid = uuidv4();
+
 const createdUsuarios = async (Usuario) => {
     let queryTwo;
-    let uuid = uuidv4();
-  const { nombre, apellidos, passwordHash, email, rol, estado } = Usuario;
+  const { nombre, apellidos, passwordHash, email, rol, estado, area_id } = Usuario;
   try {
     //Fetch all three queries in sequence
     let queryOne = await pool.query("INSERT INTO USUARIO (ID,nombre,apellidos,password,email,rol,estado) VALUES ($1,$2,$3,$4,$5,$6,$7);",
@@ -18,7 +19,7 @@ const createdUsuarios = async (Usuario) => {
             queryTwo = await pool.query("INSERT INTO SUPERVISOR (ID) VALUES ($1)",[uuid]);
             break;
         case "empleado":
-            queryTwo = await pool.query("INSERT INTO EMPLEADO (ID) VALUES ($1)",[uuid]);
+            queryTwo = await pool.query("INSERT INTO EMPLEADO (ID,AREA_ID) VALUES ($1,$2)",[uuid, area_id]);
             break;
         case "administrador":
             console.log("Admin Creado");
@@ -31,8 +32,20 @@ const createdUsuarios = async (Usuario) => {
     //Return the responses from the function
     return [queryOne, queryTwo];
   } catch (error) {
-    console.log(error);
+    console.log(error.code);
   }
+};
+
+const asignarSupervisorAgente = async (supervisor_id) => {
+try {
+  //Fetch all three queries in sequence
+  let queryOne = await pool.query("INSERT INTO SUPERVISOR_ASIGNA_AGENTE (AGENTE_ID, SUPERVISOR_ID)",[uuid, supervisor_id]);
+
+  //Return the responses from the function
+  return queryOne;
+} catch (error) {
+  console.log(error.code);
+}
 };
 
 const readUsuarios = async (limite, desde) => {
@@ -48,7 +61,8 @@ const readUsuarios = async (limite, desde) => {
 };
 
 const updatingUsuario = async (Usuario) => {
-  const { id, nombre, apellidos, passwordHash, email, rol, estado } = Usuario;
+  const { id, nombre, apellidos, passwordHash, email, rol, estado, area_id } = Usuario;
+  let empleadoUpdated;
   try {
     const usuarioUpdated = await pool.query(
       `UPDATE USUARIO
@@ -61,7 +75,15 @@ const updatingUsuario = async (Usuario) => {
              WHERE id = $1`,
       [id, nombre, apellidos, passwordHash, email, rol, estado]
     );
-    return usuarioUpdated;
+    
+    if (rol === "empleado") {
+      empleadoUpdated = await pool.query(
+        `UPDATE EMPLEADO
+        SET AREA_ID = $1;`,[area_id]
+      )
+    }
+
+    return [usuarioUpdated, empleadoUpdated];
   } catch (error) {
     console.log(error);
   }
@@ -95,5 +117,6 @@ module.exports = {
   loginByEmail,
   readUsuarios,
   updatingUsuario,
-  deletingUsuario
+  deletingUsuario,
+  asignarSupervisorAgente
 };
