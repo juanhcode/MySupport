@@ -372,7 +372,7 @@ body.dark-theme {
 
 /*=============== FOOTER ===============*/
 .footer {
-  background-color: var(--first-color-lighten);
+  background-color: #71acd3;
   padding-bottom: 2rem;
 }
 
