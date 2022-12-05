@@ -4,7 +4,7 @@ const getAgenteSupervisor = async (supervisor_id, desde, limite) => {
     try {
       const query = await pool.query(
         `
-        SELECT U.NOMBRE, U.APELLIDOS, U.EMAIL FROM USUARIO U INNER JOIN AGENTE A ON U.ID = A.ID 
+        SELECT U.ID, U.NOMBRE, U.APELLIDOS, U.EMAIL FROM USUARIO U INNER JOIN AGENTE A ON U.ID = A.ID 
         INNER JOIN SUPERVISOR_ASIGNA_AGENTE SAA ON A.ID = SAA.AGENTE_ID WHERE SUPERVISOR_ID = $1 
         OFFSET $2 ROWS FETCH FIRST $3 ROW ONLY;
           `,
