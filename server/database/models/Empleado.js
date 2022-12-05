@@ -25,17 +25,16 @@ const filtrarTickets = async (desde, limite, id, estado_id) => {
 
 
 const creationTickets = async (Ticket)=>{
-    const {empleado_id, agente_id, estado_id, titulo,descripcion,imagenURL,fecha_inicio, fecha_final, estado_borrado, empresa} = Ticket;
+    const {empleado_id, estado_id, titulo,descripcion,imagenURL,fecha_inicio, fecha_final, estado_borrado, empresa} = Ticket;
     //TODO: Decir que el id del Ticket es un uuid y el empleado ID se manda por el body del payload del frontend o modificar en la tabla para que sea autoincrementable
     try{
         const ticketCreated = await pool.query(`
         INSERT INTO TICKET 
-        (TICKET_ID,EMPLEADO_ID, AGENTE_ID, ESTADO_ID, titulo, descripcion, imagenURL, fecha_inicio, fecha_final, estado_borrado, empresa) 
-        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`,
+        (TICKET_ID,EMPLEADO_ID, ESTADO_ID, titulo, descripcion, imagenURL, fecha_inicio, fecha_final, estado_borrado, empresa) 
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`,
         [
             uuidv4(),
             empleado_id,
-            agente_id,
             estado_id,
             titulo,
             descripcion,

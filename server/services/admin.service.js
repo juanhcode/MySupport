@@ -25,8 +25,8 @@ const cantidadAgentesPorEmpresa = async (dominio) => {
     return filtro;
 } 
 
-const cantidadTicketsPorArea = async (area) => {
-    const filtro = await Admin.getTicketsPorArea(area);
+const cantidadTicketsPorArea = async (dominio) => {
+    const filtro = await Admin.getTicketsPorArea(dominio);
     return filtro;
 } 
 
