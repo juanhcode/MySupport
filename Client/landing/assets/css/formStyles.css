@@ -20,7 +20,7 @@
 }
 
 body{
-	background: var(--primary);
+	background: #5e686e;
 	color: var(--text-clr);
 	font-size: 16px;
 	position: relative;

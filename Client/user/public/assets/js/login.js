@@ -1,7 +1,7 @@
-const email = document.getElementById('email');
-const password = document.getElementById('password');
-const form = document.querySelector('form');
-const message = document.querySelector('.message');
+const email = document.getElementById('email')
+const password = document.getElementById('password')
+const form = document.querySelector('form')
+const message = document.querySelector('.message')
 
 document.addEventListener('DOMContentLoaded',()=>{
     let clave =  localStorage.getItem('userDelete');
@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 })
 
 form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const user = {
-        email: email.value,
-        password: password.value
-    }
-    const newUser = JSON.stringify(user);
-    await login(newUser);
+  e.preventDefault()
+  const user = {
+    email: email.value,
+    password: password.value,
+  }
+  const newUser = JSON.stringify(user)
+  await login(newUser)
 })
 
 const login = async (user) => {
@@ -48,7 +48,7 @@ const login = async (user) => {
         }else if(response.status == 200 && rol == 'empleado'){
             window.location.href = '../../../../../Client/user/employee/index.html'
         }else if(response.status == 200 && rol == 'supervisor'){
-            //window.location.href = '../../../../../Client/user/employee/index.html';
+            window.location.href = '../../../../../Client/user/overseer/index.html';
         }
     } catch (error) {
         console.log(error);
