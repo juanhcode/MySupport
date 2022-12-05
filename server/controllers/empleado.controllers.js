@@ -73,7 +73,7 @@ const listTicketsFilter = async (req, res) => {
   const { authorization } = req.headers;
   const empleado_id = await getId(authorization);
   const { limite = 5, desde = 0 } = req.params;
-  const { estado_id } = req.body;
+  const { estado_id } = req.params;
 
   const result = await empleadoService.filterTicketsEmpleados(desde, limite, empleado_id, estado_id);
 
