@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
 const getArea = async ()=>{
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:4000/v1/empresa/get/areas",
+        const response = await fetch("https://mysupport-production.up.railway.app/v1/empresa/get/areas",
             {
                 headers: {
                     Accept: "application/json",
@@ -70,7 +70,7 @@ form.addEventListener('submit', async (e) => {
 const updateUserFunction = async (id,userJson) => {
     const token = localStorage.getItem("token");
     try {
-        const response = await fetch(`http://localhost:4000/v1/user/update/${id}`, {
+        const response = await fetch(`https://mysupport-production.up.railway.app/v1/user/update/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

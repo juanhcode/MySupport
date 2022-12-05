@@ -15,7 +15,6 @@ const creationTickets = async (req, res) => {
   const { authorization } = req.headers;
   const empleado_id = await getId(authorization);
   const {
-    agente_id,
     estado_id,
     titulo,
     descripcion,
@@ -28,7 +27,6 @@ const creationTickets = async (req, res) => {
   //TODO:validar que los campos no sean vacios y si lo son responder con un mensaje de error o algo asi xd
   const Ticket = {
     empleado_id,
-    agente_id,
     estado_id,
     titulo,
     descripcion,

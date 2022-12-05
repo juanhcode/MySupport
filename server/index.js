@@ -33,7 +33,9 @@ const swaggerSpec = {
 
 //Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin:'*'
+}));
 app.use(morgan("dev"));
 app.use("/v1/doc",swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 app.use('/v1/login', login);

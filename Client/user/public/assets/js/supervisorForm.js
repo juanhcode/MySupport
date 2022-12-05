@@ -4,8 +4,12 @@ const email = document.getElementById('email');
 const password = document.getElementById('password');
 const form = document.querySelector('form');
 const btnSubmit = document.getElementById('btn-submit');
+const spinner = document.getElementById('spinner');
 const msgDescription = document.getElementById('descriptionModal');
 const btnRadio = document.querySelectorAll('input[name="accountType"]');
+if (msgDescription.textContent == '                        ') {
+    console.log("No hay nada");
+}
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -21,15 +25,15 @@ form.addEventListener('submit', async (e) => {
     const userJson = JSON.stringify(user);
     const response = await crearUsuario(userJson);
     console.log(response);
-    await messageModal(response, msgDescription);
+    console.log(response.status);
+    await messageModal(response.status, response.data.message, msgDescription);;
 
 })
 
 const crearUsuario = async (user) => {
-    console.log(user);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiRW1wbGVhZG8iLCJuYW1lIjoiU2ViYXN0aWFuIiwiZW1haWwiOiJzZWJhc0BlY29wZXRyb2wuY29tLmNvIiwiaWF0IjoxNjY5NzAwMDU3LCJleHAiOjE2Njk3MDcyNTd9.3cZV_5eFQqg-YATBHlb1Dr0udMkVwkRHTFC8Wh9ywVs';
+    const token = localStorage.getItem("token");
     try {
-        const response = await fetch('http://localhost:4000/v1/user/create', {
+        const response = await fetch('https://mysupport-production.up.railway.app/v1/user/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,10 +51,36 @@ const crearUsuario = async (user) => {
     }
 }
 
-const messageModal = (message, component) => {
-    const { status, data } = message;
-    if (status == 200) {
-        component.textContent = data.message;
+const messageModal = async (status, message, component) => {
+    if (status == 201) {
+        component.textContent = message;
+        spinner.style.display = "none"
+    }
+    if (status == 400) {
+        component.textContent = 'Debe introducir todos los datos';
+        spinner.style.display = "none"
+    }
+    if (status == 500) {
+        component.textContent = message;
+        spinner.style.display = "none"
+    }
+}
+
+const recargar = () => {
+    const valueRadio = getValueRadio(btnRadio);
+    switch (valueRadio) {
+        case 'empleado':
+            window.location.href = "../../../../../Client/user/public/empleadosTable.html";
+            break;
+        case 'agente':
+            window.location.href = "../../../../../Client/user/public/agenteTable.html";
+            break;
+        case 'supervisor':
+            window.location.href = "../../../../../Client/user/public/supervisoresTable.html";
+            break;
+        default:
+            window.location.href = "../../../../../Client/user/public/index.html";
+            break;
     }
 }
 
