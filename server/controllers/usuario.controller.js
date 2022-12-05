@@ -1,16 +1,17 @@
 const usuarioService = require('../services/usuario.service');
 const {encrypt} = require('../helpers/configBcrypt');
+
 const creationUsuarios = async (req,res)=>{
-    const {id,nombre,apellidos,password,email,rol,estado} = req.body;
+    const {nombre,apellidos,password,email,rol,estado, area_id} = req.body;
     const passwordHash =  await encrypt(password);
     const Usuario = {
-        id,
         nombre,
         apellidos,
         passwordHash,
         email,
         rol,
-        estado
+        estado,
+        area_id 
     }
     //TODO:validar de que si llega algun campo vacio responder con un status diferente y enviar ¡Ups! Algo salió mal
     const usuarioCreated = await usuarioService.creationUsuarios(Usuario);
@@ -39,7 +40,7 @@ const usuariosGet = async (req, res) => {
 
 const updateUsuarios = async (req,res)=>{
     const {id} = req.params;
-    const {nombre,apellidos,password,email,rol,estado} = req.body;
+    const {nombre,apellidos,password,email,rol,estado, area_id} = req.body;
     const passwordHash =  await encrypt(password);
     const Usuario = {
         id,
@@ -48,11 +49,12 @@ const updateUsuarios = async (req,res)=>{
         passwordHash,
         email,
         rol,
-        estado
+        estado,
+        area_id
     }
     //TODO:validar de que si llega algun campo vacio responder con un status diferente y enviar ¡Ups! Algo salió mal
     const usuarioUpdated = await usuarioService.updateUsuario(Usuario);
-    if(!usuarioUpdated.rowCount == 1){
+    if(!usuarioUpdated.rowCount == 2){
         res.status(500).send({
             message:"¡Ups! Algo salió mal",
         });
@@ -78,9 +80,26 @@ const deleteUsuario = async (req,res)=>{
     });
 }
 
+const postAsignarAgenteSupervisor = async (req,res)=>{
+    const {supervisor_id} = req.body;
+    //TODO:validar de que si llega algun campo vacio responder con un status diferente y enviar ¡Ups! Algo salió mal
+    const asignacion = await usuarioService.postAsignaSupervisor(supervisor_id);
+    if(!asignacion.rowCount == 1){
+        res.status(500).send({
+            message:"¡Ups! Algo salió mal",
+        });
+        return;
+    }
+    res.status(200).send({
+        message: `Supervisor ${supervisor_id} asignado satisfactoriamente`,
+    });
+}
+
+
 module.exports = {
     creationUsuarios,
     usuariosGet,
     updateUsuarios,
-    deleteUsuario
+    deleteUsuario,
+    postAsignarAgenteSupervisor
 }

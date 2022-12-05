@@ -10,7 +10,8 @@ const post_put_UsuarioSchema = joi.object({
     password: joi.string().pattern(new RegExp('[a-zA-Z0-9]')).max(100).required(),
     email: joi.string().pattern(new RegExp('[a-zA-Z0-9]')).email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).max(50).required(),
     rol: joi.string().pattern(new RegExp('[a-zA-Z0-9]')).max(20).required(),
-    estado: joi.boolean()
+    estado: joi.boolean(),
+    area_id: joi.number()
 });
 
 module.exports = {

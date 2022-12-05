@@ -9,4 +9,6 @@ router.post('/create', validator.body(post_put_UsuarioSchema) ,usuariosControlle
 router.get('/get',usuariosControllers.usuariosGet);
 router.put('/update/:id', validator.body(post_put_UsuarioSchema), validator.params(usuarioParamSchema) ,usuariosControllers.updateUsuarios);
 router.delete('/delete/:id', validator.params(usuarioParamSchema), usuariosControllers.deleteUsuario);
+router.post('/asignar/supervisor', usuariosControllers.postAsignarAgenteSupervisor);
+
 module.exports = router;

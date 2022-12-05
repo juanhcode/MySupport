@@ -23,9 +23,9 @@ const login = async (user) => {
             body: user
         });
         const data = await response.json();
+        localStorage.setItem('user',JSON.stringify(data?.data));
         const rol = data.data?.rol;
         const { tokenSession } = data
-        console.log(tokenSession)
         localStorage.setItem("token", tokenSession)
         if (response.status == 404) {
             message.textContent = data?.error;
@@ -38,7 +38,7 @@ const login = async (user) => {
         }else if(response.status == 200 && rol == 'empleado'){
             window.location.href = '../../../../../Client/user/employee/index.html'
         }else if(response.status == 200 && rol == 'supervisor'){
-            //window.location.href = '../../../../../Client/user/employee/index.html'
+            window.location.href = '../../../../../Client/user/employee/index.html';
         }
     } catch (error) {
         console.log(error);
