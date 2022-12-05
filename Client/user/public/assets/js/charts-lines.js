@@ -1,6 +1,21 @@
 /**
  * For usage, visit Chart.js docs https://www.chartjs.org/docs/latest/
  */
+/*
+ const getTicketsPorArea = async () => {
+  const response = await fetch("https://mysupport-production.up.railway.app/v1/admin/get/ticketsPorEmpresa",
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const tickets = await response.json();
+  return tickets;
+}
+*/
+
 const lineConfig = {
   type: 'line',
   data: {
@@ -14,7 +29,7 @@ const lineConfig = {
          */
         backgroundColor: '#0694a2',
         borderColor: '#0694a2',
-        data: [43, 48, 40, 54, 67, 73, 70],
+        data: [43, 48, 40, 54, 67, 73, 100],
         fill: false,
       },
       {
