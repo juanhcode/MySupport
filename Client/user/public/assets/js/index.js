@@ -8,7 +8,6 @@ const camposAgentes = document.getElementById('totalAgente');
 const camposSupervisores = document.getElementById('totalSupervisor');
 const spinner = document.getElementById('spinner');
 const tabla = document.getElementById('tabla');
-
 import { Data } from './modules/componentIndex.js';
 const token = localStorage.getItem("token");
 document.addEventListener('DOMContentLoaded', async () => {
@@ -237,4 +236,3 @@ const getUsers = async () => {
     console.log(error);
   }
 }
-

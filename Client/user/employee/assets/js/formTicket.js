@@ -26,7 +26,7 @@ form.addEventListener("submit", async (e) => {
         "empresa": await getDomain(user?.email)
     }
     const newTicket = JSON.stringify(Ticket);
-    const responseTicket = await fetch('http://localhost:4000/v1/tickets/create', {
+    const responseTicket = await fetch('https://mysupport-production.up.railway.app/v1/tickets/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

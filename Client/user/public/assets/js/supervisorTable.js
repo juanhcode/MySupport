@@ -25,12 +25,10 @@ btnAceptar.addEventListener('click', async()=>{
     spinnerModal.style.display="block";
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`https://mysupport-production.up.railway.app/v1/user/delete/${id}`,
+        const response = await fetch(`http://localhost:4000/v1/user/delete/${id}`,
             {
-                mode:'cors',
                 method:"DELETE",
                 headers: {
-                    'Access-Control-Allow-Origin': '*',
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,
                 },

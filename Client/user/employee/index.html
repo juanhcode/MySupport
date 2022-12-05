@@ -4,11 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tables - Windmill Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="./assets/js/init-alpine.js"></script>
+  <title>MySupport</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../public/assets/css/tailwind.output.css" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -70,7 +66,7 @@
       @keydown.escape="closeSideMenu">
       <div class="py-4 text-gray-500 dark:text-gray-400">
         <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-          Windmill
+          MySupport
         </a>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
@@ -247,19 +243,20 @@
       <main class="h-full pb-16 overflow-y-auto">
         <div class="container grid px-6 mx-auto">
           <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Empleados
+            Mis Tickets
           </h2>
           <div class="mb-4">
-            <select
-                class="appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
-                <option>All</option>
-                <option>Abierto</option>
-                <option>Cerrado</option>
-                <option>Aprobado</option>
+            <select id="select"
+                class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                <option value="all">All</option>
+                <option value="O">Abierto</option>
+                <option value="C">Cerrado</option>
+                <option value="A">Aprobado</option>
             </select>
           </div>
           <div class="w-full overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto">
+              <div></div>
               <table class="w-full whitespace-no-wrap">
                 <thead>
                   <tr
@@ -348,7 +345,7 @@
       </main>
     </div>
   </div>
-  <script src="" type="module"></script>
+  <script src="./assets/js/misTickets.js"></script>
 </body>
 
 </html>

@@ -3,6 +3,16 @@ const password = document.getElementById('password');
 const form = document.querySelector('form');
 const message = document.querySelector('.message');
 
+document.addEventListener('DOMContentLoaded',()=>{
+    let clave =  localStorage.getItem('userDelete');
+    let user = localStorage.getItem('user');
+    let userSelect = localStorage.getItem('userSelect')
+    let token = localStorage.getItem('token');
+    if(clave != null || user != null || userSelect != null || token != null) {
+        localStorage.clear();
+    }
+})
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const user = {
