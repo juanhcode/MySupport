@@ -1,21 +1,31 @@
-const email = document.getElementById('email');
-const password = document.getElementById('password');
-const form = document.querySelector('form');
-const message = document.querySelector('.message');
+const email = document.getElementById('email')
+const password = document.getElementById('password')
+const form = document.querySelector('form')
+const message = document.querySelector('.message')
+
+document.addEventListener('DOMContentLoaded',()=>{
+    let clave =  localStorage.getItem('userDelete');
+    let user = localStorage.getItem('user');
+    let userSelect = localStorage.getItem('userSelect')
+    let token = localStorage.getItem('token');
+    if(clave != null || user != null || userSelect != null || token != null) {
+        localStorage.clear();
+    }
+})
 
 form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const user = {
-        email: email.value,
-        password: password.value
-    }
-    const newUser = JSON.stringify(user);
-    await login(newUser);
+  e.preventDefault()
+  const user = {
+    email: email.value,
+    password: password.value,
+  }
+  const newUser = JSON.stringify(user)
+  await login(newUser)
 })
 
 const login = async (user) => {
     try {
-        const response = await fetch("http://localhost:4000/v1/login", {
+        const response = await fetch("https://mysupport-production.up.railway.app/v1/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +48,7 @@ const login = async (user) => {
         }else if(response.status == 200 && rol == 'empleado'){
             window.location.href = '../../../../../Client/user/employee/index.html'
         }else if(response.status == 200 && rol == 'supervisor'){
-            //window.location.href = '../../../../../Client/user/employee/index.html';
+            window.location.href = '../../../../../Client/user/overseer/index.html';
         }
     } catch (error) {
         console.log(error);

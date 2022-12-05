@@ -1,32 +1,54 @@
 /**
  * For usage, visit Chart.js docs https://www.chartjs.org/docs/latest/
  */
+
+const getTicketsPorArea = async () => {
+  const token = localStorage.getItem("token");
+  const response = await fetch("https://mysupport-production.up.railway.app/v1/admin/get/ticketsPorEmpresa",
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const tickets = await response.json();
+  return tickets;
+}
+const savedData = async () => {
+  const response = await getTicketsPorArea();
+  console.log(response);
+  localStorage.setItem('area1',JSON.stringify(response.result[0]));
+  localStorage.setItem('area2',JSON.stringify(response.result[1]));
+}
+savedData();
+
+const area = JSON.parse(localStorage.getItem('area1'));
+console.log(area);
+const area2 = JSON.parse(localStorage.getItem('area2'));
+
 const lineConfig = {
   type: 'line',
   data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['Tickets','','','','Tickets'],
     datasets: [
       {
-        label: 'Organic',
+        label: 'Desarrolladores Java',
         /**
          * These colors come from Tailwind CSS palette
          * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
          */
         backgroundColor: '#0694a2',
         borderColor: '#0694a2',
-        data: [43, 48, 40, 54, 67, 73, 70],
+        data: [1,2],
         fill: false,
       },
       {
-        label: 'Paid',
+        label: 'Recursos Humanos',
         fill: false,
-        /**
-         * These colors come from Tailwind CSS palette
-         * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
-         */
         backgroundColor: '#7e3af2',
         borderColor: '#7e3af2',
-        data: [24, 50, 64, 74, 52, 51, 65],
+        data: [1,2,3,4,5],
       },
     ],
   },

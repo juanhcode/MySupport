@@ -1,11 +1,58 @@
+const user = JSON.parse(localStorage.getItem('user'));
 const nombre = document.getElementById('nombre');
 const apellido = document.getElementById('apellido');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const form = document.querySelector('form');
 const btnSubmit = document.getElementById('btn-submit');
+const spinner = document.getElementById('spinner');
+const supervisor = document.getElementById('supervisor');
+const fieldArea = document.getElementById('select');
 const msgDescription = document.getElementById('descriptionModal');
+import { DataArea } from './modules/componentSAsignar.js';
 const btnRadio = document.querySelectorAll('input[name="accountType"]');
+if (msgDescription.textContent == '                        ') {
+    console.log("No hay nada");
+}
+
+btnRadio.forEach(elemento => {
+    elemento.addEventListener('click', async (e) => {
+        if (e.target.value == 'agente') {
+            console.log('Aqui se colcoa todo');
+            supervisor.style.display = "block";
+            const data = await getSupervisor();
+            data.result.forEach((supervisor, index) => {
+                const { id, nombre, apellidos } = supervisor;
+                DataArea(fieldArea, nombre, apellidos, id);
+            });
+        } else {
+            supervisor.style.display = "none";
+        }
+    })
+})
+
+select.addEventListener('change', async () => {
+    let estado = select.value;
+    localStorage.setItem('supervisorAsignar', estado);
+})
+
+const getSupervisor = async () => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await fetch("https://mysupport-production.up.railway.app/v1/admin/get/supervisores",
+            {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -18,18 +65,39 @@ form.addEventListener('submit', async (e) => {
         rol: valueRadio,
         estado: false
     }
+    if (valueRadio == 'agente') {
+        const diSupervisor = localStorage.getItem('supervisorAsignar');
+        const supervisor = {
+            "supervisor_id": diSupervisor
+        }
+        const supervisorJson = JSON.stringify(supervisor);
+        const responseAgente = await asignarSupervisor(supervisorJson);
+        console.log(responseAgente);
+        if (responseAgente.status == 200) {
+            const userJson = JSON.stringify(user);
+            const response = await crearUsuario(userJson);
+            await messageModal(response.status, response.data.message, msgDescription);;
+        };
+        //consumir API de asignar supervisor a agente
+
+    } else {
+        const userJson = JSON.stringify(user);
+        const response = await crearUsuario(userJson);
+        await messageModal(response.status, response.data.message, msgDescription);;
+    }
+    /*
     const userJson = JSON.stringify(user);
     const response = await crearUsuario(userJson);
     console.log(response);
-    await messageModal(response, msgDescription);
-
+    console.log(response.status);
+    await messageModal(response.status, response.data.message, msgDescription);;
+    */
 })
 
 const crearUsuario = async (user) => {
-    console.log(user);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiRW1wbGVhZG8iLCJuYW1lIjoiU2ViYXN0aWFuIiwiZW1haWwiOiJzZWJhc0BlY29wZXRyb2wuY29tLmNvIiwiaWF0IjoxNjY5NzAwMDU3LCJleHAiOjE2Njk3MDcyNTd9.3cZV_5eFQqg-YATBHlb1Dr0udMkVwkRHTFC8Wh9ywVs';
+    const token = localStorage.getItem("token");
     try {
-        const response = await fetch('http://localhost:4000/v1/user/create', {
+        const response = await fetch('https://mysupport-production.up.railway.app/v1/user/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,10 +115,63 @@ const crearUsuario = async (user) => {
     }
 }
 
-const messageModal = (message, component) => {
-    const { status, data } = message;
-    if (status == 200) {
-        component.textContent = data.message;
+const asignarSupervisor = async (user) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await fetch('https://mysupport-production.up.railway.app/v1/user/asignar/supervisor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: user,
+        });
+        const data = await response.json();
+        return {
+            data,
+            status: response.status
+        };
+    } catch (error) {
+        return error;
+    }
+}
+
+
+
+
+
+
+
+const messageModal = async (status, message, component) => {
+    if (status == 201) {
+        component.textContent = message;
+        spinner.style.display = "none"
+    }
+    if (status == 400) {
+        component.textContent = 'Debe introducir todos los datos';
+        spinner.style.display = "none"
+    }
+    if (status == 500) {
+        component.textContent = message;
+        spinner.style.display = "none"
+    }
+}
+
+const recargar = () => {
+    const valueRadio = getValueRadio(btnRadio);
+    switch (valueRadio) {
+        case 'empleado':
+            window.location.href = "../../../../../Client/user/public/empleadosTable.html";
+            break;
+        case 'agente':
+            window.location.href = "../../../../../Client/user/public/agenteTable.html";
+            break;
+        case 'supervisor':
+            window.location.href = "../../../../../Client/user/public/supervisoresTable.html";
+            break;
+        default:
+            window.location.href = "../../../../../Client/user/public/index.html";
+            break;
     }
 }
 

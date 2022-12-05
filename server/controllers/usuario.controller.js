@@ -21,7 +21,7 @@ const creationUsuarios = async (req,res)=>{
         });
         return;
     }
-    res.status(200).send({
+    res.status(201).send({
         message:"Usuario Creado",
     });
 }
@@ -67,7 +67,7 @@ const updateUsuarios = async (req,res)=>{
 
 const deleteUsuario = async (req,res)=>{
     const {id} = req.params;
-    //TODO:validar de que si llega algun campo vacio responder con un status diferente y enviar ¡Ups! Algo salió mal
+    console.log(id);
     const usuarioDeleted = await usuarioService.deleteUsuario(id);
     if(!usuarioDeleted.rowCount == 1){
         res.status(500).send({
