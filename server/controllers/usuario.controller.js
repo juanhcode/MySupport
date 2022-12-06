@@ -2,7 +2,7 @@ const usuarioService = require('../services/usuario.service');
 const {encrypt} = require('../helpers/configBcrypt');
 
 const creationUsuarios = async (req,res)=>{
-    const {nombre,apellidos,password,email,rol,estado, area_id} = req.body;
+    const {nombre,apellidos,password,email,rol,estado, area_id,supervisor_id} = req.body;
     const passwordHash =  await encrypt(password);
     const Usuario = {
         nombre,
@@ -11,11 +11,12 @@ const creationUsuarios = async (req,res)=>{
         email,
         rol,
         estado,
-        area_id 
+        area_id,
+        supervisor_id
     }
     //TODO:validar de que si llega algun campo vacio responder con un status diferente y enviar ¡Ups! Algo salió mal
     const usuarioCreated = await usuarioService.creationUsuarios(Usuario);
-    if(!usuarioCreated.rowCount == 2){
+    if(!usuarioCreated.rowCount == 2 || !usuarioCreated.rowCount == 3 || !usuarioCreated.rowCount == 1 || usuarioCreated.rowCount == undefined){
         res.status(500).send({
             message:"¡Ups! Algo salió mal"
         });
