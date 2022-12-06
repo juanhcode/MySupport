@@ -24,7 +24,6 @@ const savedData = async () => {
 savedData();
 
 const area = JSON.parse(localStorage.getItem('area1'));
-console.log(area);
 const area2 = JSON.parse(localStorage.getItem('area2'));
 
 const lineConfig = {
