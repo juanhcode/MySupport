@@ -49,6 +49,8 @@ const login = async (user) => {
             window.location.href = '../../../../../Client/user/employee/index.html'
         }else if(response.status == 200 && rol == 'supervisor'){
             window.location.href = '../../../../../Client/user/overseer/index.html';
+        }else if(response.status == 200 && rol == 'agente'){
+            window.location.href = '../../../../../Client/user/agente/index.html';
         }
     } catch (error) {
         console.log(error);

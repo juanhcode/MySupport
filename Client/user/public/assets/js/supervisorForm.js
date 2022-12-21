@@ -53,7 +53,7 @@ const getSupervisor = async () => {
         console.log(error);
     }
 }
-
+const diSupervisor = localStorage.getItem('supervisorAsignar');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const valueRadio = getValueRadio(btnRadio);
@@ -63,35 +63,14 @@ form.addEventListener('submit', async (e) => {
         email: email.value,
         password: password.value,
         rol: valueRadio,
-        estado: false
+        estado: false,
+        "area_id":2,
+        "supervisor_id": diSupervisor
     }
-    if (valueRadio == 'agente') {
-        const diSupervisor = localStorage.getItem('supervisorAsignar');
-        const supervisor = {
-            "supervisor_id": diSupervisor
-        }
-        const supervisorJson = JSON.stringify(supervisor);
-        const responseAgente = await asignarSupervisor(supervisorJson);
-        console.log(responseAgente);
-        if (responseAgente.status == 200) {
-            const userJson = JSON.stringify(user);
-            const response = await crearUsuario(userJson);
-            await messageModal(response.status, response.data.message, msgDescription);;
-        };
-        //consumir API de asignar supervisor a agente
-
-    } else {
-        const userJson = JSON.stringify(user);
-        const response = await crearUsuario(userJson);
-        await messageModal(response.status, response.data.message, msgDescription);;
-    }
-    /*
     const userJson = JSON.stringify(user);
     const response = await crearUsuario(userJson);
     console.log(response);
-    console.log(response.status);
     await messageModal(response.status, response.data.message, msgDescription);;
-    */
 })
 
 const crearUsuario = async (user) => {

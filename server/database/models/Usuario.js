@@ -4,8 +4,9 @@ const {v4:uuidv4} = require('uuid');
 let uuid = uuidv4();
 
 const createdUsuarios = async (Usuario) => {
-    let queryTwo;
-  const { nombre, apellidos, passwordHash, email, rol, estado, area_id } = Usuario;
+  let queryTwo;
+  let query3;
+  const { nombre, apellidos, passwordHash, email, rol, estado, area_id,supervisor_id} = Usuario;
   try {
     //Fetch all three queries in sequence
     let queryOne = await pool.query("INSERT INTO USUARIO (ID,nombre,apellidos,password,email,rol,estado) VALUES ($1,$2,$3,$4,$5,$6,$7);",
@@ -14,6 +15,7 @@ const createdUsuarios = async (Usuario) => {
     switch (rol) {
         case "agente":
             queryTwo = await pool.query("INSERT INTO AGENTE (ID) VALUES ($1)",[uuid]);
+            query3 = await pool.query("INSERT INTO SUPERVISOR_ASIGNA_AGENTE (AGENTE_ID, SUPERVISOR_ID) VALUES ($1,$2)",[uuid, supervisor_id])
             break;
         case "supervisor":
             queryTwo = await pool.query("INSERT INTO SUPERVISOR (ID) VALUES ($1)",[uuid]);
@@ -30,7 +32,7 @@ const createdUsuarios = async (Usuario) => {
     }
 
     //Return the responses from the function
-    return [queryOne, queryTwo];
+    return [queryOne, queryTwo,query3];
   } catch (error) {
     console.log(error.code);
   }

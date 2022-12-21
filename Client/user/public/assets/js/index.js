@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.location.href = "../../../../../Client/user/public/pages/login.html";
   }*/
   const responseTotalUsers = await getTotalUsers();
+  console.log(responseTotalUsers);
   const responseTotalTickets = await getTotalTickets();
   const responseTotalEmpleados = await getTotalEmpleados();
   const responseTotalAgentes = await getTotalAgentes();
@@ -134,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 const getTotalUsers = async () => {
-  const response = await fetch("https://mysupport-production.up.railway.app/v1/admin/get/usuarios",
+  const response = await fetch("https://mysupport-production.up.railway.app/v1/admin/get/usuarios/count",
     {
       headers: {
         Accept: "application/json",

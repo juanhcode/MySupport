@@ -4,16 +4,29 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Windmill Dashboard - Forms</title>
+    <title>MySupport</title>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="../public/assets/css/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="../public/assets/js/init-alpine.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script src="../public/assets/js/init-alpine.js"></script>
     <!-- You need focus-trap.js to make the modal accessible -->
     <script src="../public/assets/js/focus-trap.js" defer></script>
+    <style>
+        #enviar {
+            margin-top: 10px;
+        }
+
+        textarea {
+            margin-top: 10px;
+        }
+
+        label {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,73 +36,16 @@
             <div class="py-4 text-gray-500 dark:text-gray-400">
                 <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                     MySupport
-            <span class="nombre-secundario">/ Agente</span>
                 </a>
-                <!-- <ul class="mt-6">
+                <ul class="mt-6">
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="index.html">
+                            href="./index.html">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                                </path>
+                                <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                             </svg>
                             <span class="ml-4">Dashboard</span>
-                        </a>
-                    </li>
-                </ul> -->
-                <ul>
-                    <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="./formulario.html">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                                </path>
-                            </svg>
-                            <span class="ml-4">Atender Ticket</span>
-                        </a>
-                    </li>
-                    <!-- <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="formulario.html">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                            </svg>
-                            <span class="ml-4">Supervisores</span>
-                        </a>
-                    </li> -->
-                    <li class="relative px-6 py-3">
-                        <a
-                          class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                          href="cantidadTIcket.html"
-                        >
-                          <svg
-                            class="w-5 h-5"
-                            aria-hidden="true"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                          </svg>
-                          <span class="ml-4">Cantiadad Ticket</span>
-                        </a>
-                      </li>
-                    <!-- <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="empleadosTable.html">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                            </svg>
-                            <span class="ml-4">Empleados</span>
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
@@ -99,10 +55,10 @@
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                             </svg>
-                            <span class="ml-4">Agentes</span>
+                            <span class="ml-4">Tickets sin agente</span>
                         </a>
                     </li>
-                </ul> -->
+                    <ul>
             </div>
         </aside>
         <!-- Mobile sidebar -->
@@ -138,7 +94,6 @@
                 </ul>
                 <ul>
                     <!--MOBILE-->
-
                 </ul>
             </div>
         </aside>
@@ -284,7 +239,7 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="#">
+                                            href="../public/pages/login.html">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -304,91 +259,58 @@
             <main class="h-full pb-16 overflow-y-auto">
                 <div class="container px-6 mx-auto grid">
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                        Asignar Ticket
+                        Asignar Ticket a Agente
                     </h2>
 
                     <!-- General elements -->
                     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
                         <form action="">
                             <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Nombre</span>
+                                <span class="text-gray-700 dark:text-gray-400">ID</span>
                                 <input
                                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    id="nombre" placeholder="Jane Doe" />
+                                    id="id" disabled />
                             </label>
                             <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Apellido</span>
+                                <span class="text-gray-700 dark:text-gray-400">Titulo</span>
                                 <input
                                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    id="apellido" placeholder="Jane Doe" />
+                                    id="titulo" placeholder="Jane Doe" disabled />
                             </label>
                             <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Email</span>
-                                <!-- focus-within sets the color for the icon when input is focused -->
-                                <div
-                                    class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400">
-                                    <input
-                                        class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                        id="email" placeholder="Jane Doe" />
-                                    <div class="absolute inset-y-0 flex items-center ml-3 pointer-events-none">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </label>
-                            <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Password</span>
-                                <input
-                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    id="password" placeholder="Jane Doe" />
-                            </label>
-                            <div class="mt-4 text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">
-                                    Rol
-                                </span>
-                                <div class="mt-2">
-                                    <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
-                                        <input type="radio"
-                                            class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                            name="accountType" value="supervisor" />
-                                        <span class="ml-2">Supervisor</span>
-                                    </label>
-                                    <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                                        <input type="radio"
-                                            class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                            name="accountType" value="agente" />
-                                        <span class="ml-2">Agente</span>
-                                    </label>
-                                    <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                                        <input type="radio"
-                                            class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                                            name="accountType" value="empleado" />
-                                        <span class="ml-2">Empleado</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="flex mt-6 text-sm">
-                                <label class="flex items-center dark:text-gray-400">
-                                    <input type="checkbox"
-                                        class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" />
-                                    <span class="ml-2">
-                                        I agree to the
-                                        <span class="underline">privacy policy</span>
+                                <span class="text-gray-700 dark:text-gray-400">Description</span>
+                                <textarea disabled id="descripcion" rows="4"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Descripción del ticket"></textarea>
+                                </textarea>
+
+                                <label for="message"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agregar
+                                    Comentario</label>
+                                <textarea id="comentario" rows="4"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Write your thoughts here..."></textarea>
+
+                                <label class="block mt-4 text-sm" id="area">
+                                    <span class="text-gray-700 dark:text-gray-400">
+                                        Estado
                                     </span>
+                                    <select
+                                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                                        id="select">
+                                        <option value="O">Abierto</option>
+                                        <option value="C">Cerrado</option>
+                                        <option value="A">Aprobado</option>
+                                    </select>
+
                                 </label>
-                            </div>
-                            <div>
-                                <button @click="openModal"
-                                    class="margen-boton px-4 py-2 text-sm margin:20px font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                                    type="submit">
-                                    Agregar
-                                </button>
-                            </div>
+                                <div>
+                                    <button @click="openModal"
+                                        class="m-40 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                                        type="submit" id="enviar">
+                                        Enviar
+                                    </button>
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -421,8 +343,21 @@
                     <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
                         Mensaje
                     </p>
-                    <p class="text-sm text-gray-700 dark:text-gray-400" id="descriptionModal">
-                    </p>
+                    <div class="text-center" id="spinner">
+                        <div role="status">
+                            <svg class="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                    fill="currentColor" />
+                                <path
+                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                    fill="currentFill" />
+                            </svg>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-400" id="descriptionModal"></p>
                 </div>
                 <footer
                     class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
@@ -434,7 +369,8 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/supervisorForm.js"></script>
+    <script src="./assets/actualizarTicket.js"></script>
+
 </body>
 
 </html>
