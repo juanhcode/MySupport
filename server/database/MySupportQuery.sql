@@ -107,13 +107,11 @@ INSERT INTO ESTADO_TICKET (ESTADO_ID,nombre) VALUES ('A','Aprobado');
 
 
 ---Creacion de una empresa
-INSERT INTO EMPRESA (NIT,nombre,pais,ciudad,direccion,email) VALUES (6512343, 'Ecopetrol','Colombia','Barrancabermeja','carrera 20 #40 53','centraldereferencia@ecopetrol.com.co');
 
 ---Creacion de una Area
 INSERT INTO AREA (AREA_ID,NIT,nombre) VALUES (111,6512343,'Marketing');
 
 ---Creacion de un Usuario
-INSERT INTO USUARIO (ID,nombre,apellidos,password,email,rol,estado) VALUES (1,'Juan','Hoyos','12345','juanhoyos@ecopetrol.com.co','Empleado',true);
 
 ---Creacion de un Empleado
 INSERT INTO EMPLEADO (ID,AREA_ID) VALUES (1,111);
